@@ -1,0 +1,29 @@
+{
+  "labels": ["dependencies"],
+  "extends": [
+    "config:base",
+    "docker:disable",
+    ":preserveSemverRanges",
+    ":separateMajorReleases",
+    ":combinePatchMinorReleases",
+    ":noUnscheduledUpdates",
+    ":automergeMinor",
+    "group:allNonMajor"
+  ],
+  "ignoreDeps": [],
+  "includePaths": ["package.json"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "enabled": true,
+      "rangeStrategy": "bump",
+      "semanticCommitType": "fix",
+      "schedule": "after 2am and before 7am every sunday",
+      "minor": {
+        "groupName": "all non-major dependencies",
+        "groupSlug": "all-minor-patch",
+        "schedule": "before 7am"
+      }
+    }
+  ]
+}
